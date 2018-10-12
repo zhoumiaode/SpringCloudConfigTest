@@ -5,6 +5,13 @@ spring:
     config:
       label: master
       profile: devs
-      uri: http://localhost:8888
+      #uri: http://localhost:8888
+      discovery:
+        enabled: true
+        service-id: config-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8889/eureka/
 server:
   port: 8881
