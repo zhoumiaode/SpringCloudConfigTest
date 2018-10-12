@@ -1,0 +1,16 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+    #设置配置文件的远程仓库为github上的仓库
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhoumiaode/springCloundConfig.git
+          search-paths: respo
+          default-label: master
+          username: 1010467470@qq.com
+          password: qw173974168
+
