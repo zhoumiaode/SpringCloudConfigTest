@@ -1,5 +1,6 @@
 package com.forezp.configserver;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -21,9 +22,14 @@ public class ConfigServerApplication {
 		SpringApplication.run(ConfigServerApplication.class, args);
 	}
 
+
+
+	@Value("${server.port}")
+	public String ports;
+
 	@RequestMapping(value = "/test2")
 	public String test(){
-	    return "test";
+	    return ports;
     }
 
     @Bean
