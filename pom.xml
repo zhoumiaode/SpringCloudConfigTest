@@ -12,6 +12,7 @@
     <modules>
         <module>config-server</module>
         <module>config-client</module>
+        <module>eureka-server</module>
     </modules>
 
     <name>sc-f-chapter6</name>

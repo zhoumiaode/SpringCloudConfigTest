@@ -10,11 +10,10 @@ spring:
         git:
           uri: https://github.com/zhoumiaode/springCloundConfig.git
           search-paths: respo
-          default-label: master
           username: 1010467470@qq.com
           password: qw173974168
+      label: master
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8889/eureka/
-
+       defaultZone: http://localhost:8889/eureka/
