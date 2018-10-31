@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/config-client/config-client.iml" filepath="$PROJECT_DIR$/config-client/config-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rabbitmq/rabbitmq.iml" filepath="$PROJECT_DIR$/rabbitmq/rabbitmq.iml" />
       <module fileurl="file://$PROJECT_DIR$/scfchapter6.iml" filepath="$PROJECT_DIR$/scfchapter6.iml" />
     </modules>
   </component>
