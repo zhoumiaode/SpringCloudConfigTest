@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
  * @ProjectName: scfchapter6
  * @Package: com.forezp.rabbitmq.customer
  * @ClassName: CustomerPublishOrder1
- * @Description: java类作用描述
+ * @Description: Rabbitmq中fanout模式的消息队列：customer
  * @Author: zhoumiaode
  * @CreateDate: 2018/10/31 17:13
  * @UpdateUser: Neil.Zhou
