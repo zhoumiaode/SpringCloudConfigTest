@@ -22,8 +22,8 @@ import java.util.concurrent.TimeoutException;
  */
 public class CustomerPublishOrder1 {
 
-    public static String QUEUE_NAME="fanout_queue_111";
-    public static String CHANGE_TYPE="fanout_exchange111";
+    public static String QUEUE_NAME="fanout_queue_11";
+    public static String CHANGE_TYPE="fanout_exchange11";
 
     public static void main(String[] args) throws IOException, TimeoutException {
         Connection connection= RabbitMqConnectionUtil.getConnection("localhost",5672,"guest","guest");
