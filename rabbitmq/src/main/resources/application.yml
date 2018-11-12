@@ -5,10 +5,10 @@ spring:
     port: 5672
     username: guest
     password: guest
-    publisher-confirms: true #消息发送到交换机确认机制，是否确认回调
-    publisher-returns: true #消息发送到交换机确认机制，是否返回回调
+    publisher-confirms: true #娑堟伅鍙戦�佸埌浜ゆ崲鏈虹‘璁ゆ満鍒讹紝鏄惁纭鍥炶皟
+    publisher-returns: true #娑堟伅鍙戦�佸埌浜ゆ崲鏈虹‘璁ゆ満鍒讹紝鏄惁杩斿洖鍥炶皟
     listener:
       simple:
-        acknowledge-mode: manual #手动应答
+        acknowledge-mode: manual #鎵嬪姩搴旂瓟
   application:
     name: rabbitmq

@@ -39,7 +39,7 @@ public class Provider {
         //map.put("x-message-ttl",3000);
         //设置队列的生存时间
         //map.put("x-expires",12000);
-        channel.queueDeclare(QUEUE_NAME,false,false,false,map);
+        channel.queueDeclare(QUEUE_NAME,true,false,false,map);
         String message = "hello12334";
         //5.发布消息
         //设置单条信息的生存时间

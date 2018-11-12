@@ -34,7 +34,7 @@ public class Sender {
     @Resource
     private RabbitTemplate rabbitTemplate;
 
-    public void simple1Send(String message){g
+    public void simple1Send(String message){
         System.out.println("简单模式发送:"+message);
         rabbitTemplate.setReturnCallback((RabbitTemplate.ReturnCallback) this);
         this.rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
