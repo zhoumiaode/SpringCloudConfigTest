@@ -170,7 +170,18 @@ public class RabbitMqConfig {
 
     }
     @RabbitListener(queues = "DQ1")
-    public void FQ3(@Payload String message) {
+    public void FQ3(@Payload String message,Channel channel, Message messages) throws IOException {
+        logger.info("HelloReceiver收到  : " + message +"收到时间"+new Date());
+        try {
+            //告诉服务器收到这条消息 已经被我消费了 可以在队列删掉 这样以后就不会再发了 否则消息服务器以为这条消息没处理掉 后续还会在发
+            channel.basicAck(messages.getMessageProperties().getDeliveryTag(),false);
+            logger.info("receiver success");
+        } catch (IOException e) {
+            e.printStackTrace();
+            //丢弃这条消息
+            channel.basicNack(messages.getMessageProperties().getDeliveryTag(), false,false);
+            logger.info("receiver fail");
+        }
         logger.info("路由键队列(DQ1):" + message );
 
     }

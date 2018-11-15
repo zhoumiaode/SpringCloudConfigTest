@@ -1,7 +1,10 @@
 package com.forezp.rabbitmq.springbootRabbitmq;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -35,16 +38,10 @@ public class Sender {
     private RabbitTemplate rabbitTemplate;
 
     public void simple1Send(String message){
+        Logger log = LoggerFactory.getLogger(Sender.class);
         System.out.println("简单模式发送:"+message);
-        rabbitTemplate.setReturnCallback((RabbitTemplate.ReturnCallback) this);
-        this.rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
-            if (!ack) {
-                System.out.println("HelloSender消息发送失败" + cause + correlationData.toString());
-            } else {
-                System.out.println("HelloSender 消息发送成功 ");
-            }
-        });
-        amqpTemplate.convertAndSend(Simple_Name,message);
+        //rabbitTemplate.convertAndSend(Simple_Name,message);
+        rabbitTemplate.convertAndSend(Direct_Exchange,"route",message);
     }
 
     public void simpleSend(String message){

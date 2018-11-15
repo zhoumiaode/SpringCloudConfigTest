@@ -26,7 +26,7 @@ public class ProviderRouteKey {
     public static void main(String[] args) throws IOException, TimeoutException {
         Connection connection= RabbitMqConnectionUtil.getConnection("localhost",5672,"guest","guest");
         Channel channel=connection.createChannel();
-        channel.exchangeDeclare(Exchange_Name,"direct");
+        channel.exchangeDeclare(Exchange_Name,"direct",true,false,false,null);
         String message="first";
         channel.basicPublish(Exchange_Name,"second",null,message.getBytes());
         System.out.println("[x] send'" + message + "'");
@@ -34,4 +34,5 @@ public class ProviderRouteKey {
         channel.close();
         connection.close();
     }
+
 }
