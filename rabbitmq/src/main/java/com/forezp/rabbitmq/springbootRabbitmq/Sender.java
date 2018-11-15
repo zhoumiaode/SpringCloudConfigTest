@@ -2,7 +2,10 @@ package com.forezp.rabbitmq.springbootRabbitmq;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -66,5 +69,23 @@ public class Sender {
     public void topicSend(String message){
         System.out.println("模糊路由键模式:"+message);
         amqpTemplate.convertAndSend(Topic_Exchange,"route.ter.ter",message);
+    }
+
+    /**
+    * @Description:  延时队列测试
+    * @Param: [message]
+    * @return: void
+    * @Author: zhoumiaode
+    * @Date: 2018/11/15
+    */
+    public void topicSendDelay(String message){
+        System.out.println("消息模式:"+message);
+        rabbitTemplate.convertAndSend(Topic_Exchange, "delay.delay", message, new MessagePostProcessor() {
+            @Override
+            public Message postProcessMessage(Message message) throws AmqpException {
+                message.getMessageProperties().setExpiration("10000");
+                return message;
+            }
+        });
     }
 }

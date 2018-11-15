@@ -23,6 +23,7 @@ public class RabbitmqApplication {
         connectionFactory.setUsername("guest");
         connectionFactory.setPassword("guest");
         connectionFactory.setPort(5672);
+        //如果消息需要确认以及回调则需设置以下；两个参数为true
         connectionFactory.setPublisherConfirms(true);
         connectionFactory.setPublisherReturns(true);
         return connectionFactory;
@@ -35,6 +36,7 @@ public class RabbitmqApplication {
     @Bean
     public RabbitTemplate rabbitTemplate(){
         RabbitTemplate template = new RabbitTemplate(connectionFactory());
+        //使用消息确认机制需要此参数设置
         template.setMandatory(true);
         template.setReturnCallback((messages, replyCode, replyText, exchange, routingKey) -> {
             String correlationId = messages.getMessageProperties().getCorrelationId();

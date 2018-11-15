@@ -42,6 +42,8 @@ public class RabbitMqConfig {
     private static String Direct_Queue2="DQ2";
     private static String Topic_Queue1="TQ1";
     private static String Topic_Queue2="TQ2";
+
+    private static String Delay_Queue="YQ1";
     private static String Fanout_Exchange="fanouts";
     private static String Direct_Exchange="directs";
     private static String Topic_Exchange="topic";
@@ -96,6 +98,14 @@ public class RabbitMqConfig {
         return new Queue(Topic_Queue2,false);
     }
 
+    @Bean
+    public Queue queue7(){
+        Map<String,Object> map=new HashMap<String,Object>();
+        //设置队列的死信队列，包括死信队列的交换机以及路由键
+        map.put("x-dead-letter-exchange",Topic_Exchange);
+        map.put("x-dead-letter-routing-key","route.*");
+        return new Queue(Delay_Queue,false,false,false,map);
+    }
     @Bean
     public FanoutExchange fanoutExchange(){
         return new FanoutExchange(Fanout_Exchange);
@@ -159,6 +169,11 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(queue6()).to(topicExchange()).with("route.#");
     }
 
+    @Bean
+    public Binding FQ7(){
+        return BindingBuilder.bind(queue7()).to(topicExchange()).with("delay.#");
+    }
+
     @RabbitListener(queues = "FQ1")
     public void FQ1(@Payload String message) {
         logger.info("广播队列(FQ1):" + message );
@@ -192,8 +207,9 @@ public class RabbitMqConfig {
     }
 
     @RabbitListener(queues = "TQ1")
+
     public void FQ5(@Payload String message) {
-        logger.info("模糊路由键队列(TQ1):" + message );
+        logger.info("模糊路由键队列(TQ1):" + message+"111" );
 
     }
     /**
@@ -233,7 +249,7 @@ public class RabbitMqConfig {
             logger.info("receiver success");
         } catch (IOException e) {
             e.printStackTrace();
-            //丢弃这条消息
+            //消息重新回到队列
             channel.basicNack(messages.getMessageProperties().getDeliveryTag(), false,false);
             logger.info("receiver fail");
         }
@@ -244,5 +260,24 @@ public class RabbitMqConfig {
     public void process0(@Payload String message) {
 
         logger.info("Listener收到String类型mq消息:" + message);
+    }
+
+
+    @RabbitListener(queues = "YQ1")
+    @RabbitHandler
+    public void process(@Payload String message,Channel channel,Message messages) throws IOException {
+        try {
+            //告诉服务器收到这条消息 已经被我消费了 可以在队列删掉 这样以后就不会再发了 否则消息服务器以为这条消息没处理掉 后续还会在发
+            channel.basicAck(messages.getMessageProperties().getDeliveryTag(),false);
+            logger.info("receiver success");
+        } catch (IOException e) {
+            e.printStackTrace();
+            //拒绝此条消息，使消息成为死信，转发到死信队列
+            channel.basicReject(messages.getMessageProperties().getDeliveryTag(), true);
+            //使消息返回队列
+            channel.basicNack(messages.getMessageProperties().getDeliveryTag(), false,false);
+            logger.info("receiver fail");
+        }
+        logger.info("延迟第一层消息:" + message);
     }
 }
