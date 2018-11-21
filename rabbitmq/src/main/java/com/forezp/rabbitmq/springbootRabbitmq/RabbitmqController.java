@@ -35,7 +35,9 @@ public class RabbitmqController {
     @RequestMapping(value = "/simple00")
     public void Simple1Send00(){
         String message="hello";
-        sender.topicSendDelay(message);
+        for(int i=0;i<2;i++){
+            sender.topicSendDelay(message);
+        }
     }
 
 

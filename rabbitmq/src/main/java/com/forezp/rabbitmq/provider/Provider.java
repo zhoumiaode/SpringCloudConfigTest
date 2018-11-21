@@ -43,11 +43,12 @@ public class Provider {
         String message = "hello12334";
         //5.发布消息
         //设置单条信息的生存时间
-       // AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
-        //builder.expiration("3000");
-        //AMQP.BasicProperties build = builder.build();
-        //第一个表示交换机名称，第二个表示路由键，第三个表示属性设置，第四个表示消息实体
-        channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
+        AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();
+        builder.expiration("3000");
+        AMQP.BasicProperties build = builder.build();
+        //第一个表示交换机名称，第二个表示路由键，第三个表示是否在传递队列不存在的时候将消息返回给生产者，第四个表示在
+        // 队列没有消费者时不放入队列，直接返回给生产者。第五个表示属性设置，第六个表示消息实体
+        channel.basicPublish("",QUEUE_NAME,false,false,build,message.getBytes());
         System.out.println("[x] send'"+message+"'");
         //6.关闭通道和连接
         channel.close();
