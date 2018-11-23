@@ -3,6 +3,7 @@ package com.forezp.configclient.controller;
 import com.forezp.configclient.service.TestService;
 import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Version: 1.0
  */
 @RestController
+@RefreshScope
 public class HiControlloer {
 
     @Value("${foo.name}")
