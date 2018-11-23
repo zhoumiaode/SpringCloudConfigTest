@@ -33,12 +33,12 @@ public class Myfilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
 
         String url = new String(httpServletRequest.getRequestURI());
-
         //只过滤/actuator/bus-refresh请求
         if (!url.endsWith("/bus-refresh")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
+
 
         //使用HttpServletRequest包装原始请求达到修改post请求中body内容的目的
         CustomerRequestWrapper requestWrapper = new CustomerRequestWrapper(httpServletRequest);
