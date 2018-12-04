@@ -32,6 +32,7 @@ public class Myfilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
 
+        System.out.println("过滤器开启中");
         String url = new String(httpServletRequest.getRequestURI());
         //只过滤/actuator/bus-refresh请求
         if (!url.endsWith("/bus-refresh")) {

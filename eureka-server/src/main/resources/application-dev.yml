@@ -4,10 +4,13 @@ eureka:
   instance:
     hostname: pee1
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://pee2:8888/eureka/
   server:
     enable-self-preservation: false #关闭Service自我保护功能
     eviction-interval-timer-in-ms: 4000 #设置清理间隔，毫秒为单位
+spring:
+  application:
+    name: eureka-server
