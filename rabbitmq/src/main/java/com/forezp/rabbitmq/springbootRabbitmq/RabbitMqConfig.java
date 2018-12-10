@@ -18,6 +18,7 @@ import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Bean;
@@ -292,19 +293,29 @@ public class RabbitMqConfig {
     @RabbitHandler
     public void process11(@Payload String message,Channel channel,Message messages) throws IOException {
         try {
-            String[] str=new String[3];
+            String[] str = new String[3];
             System.out.println(str[4]);
             //告诉服务器收到这条消息 已经被我消费了 可以在队列删掉 这样以后就不会再发了 否则消息服务器以为这条消息没处理掉 后续还会在发
-            channel.basicAck(messages.getMessageProperties().getDeliveryTag(),false);
+            channel.basicAck(messages.getMessageProperties().getDeliveryTag(), false);
             logger.info("receiver success");
         } catch (Exception e) {
             // e.printStackTrace();
             //拒绝此条消息，使消息成为死信，转发到死信队列,第二个参数为true表示重新放入消息的队列，为false则直接销毁
             //channel.basicReject(messages.getMessageProperties().getDeliveryTag(), false);
             //使消息返回队列,其中第三个参数为true表示返回队列，第二个参数表示是否批量，即是否只针对当前消息
-            channel.basicNack(messages.getMessageProperties().getDeliveryTag(), false,false);
+            channel.basicNack(messages.getMessageProperties().getDeliveryTag(), false, false);
             logger.info("receiver fail");
         }
         logger.info("延迟第一层消息（轮询）:" + message);
+    }
+
+    @RabbitListener(
+            bindings = {
+            @QueueBinding(value =@org.springframework.amqp.rabbit.annotation.Queue(value = "q5",durable = "true")
+            ,exchange = @org.springframework.amqp.rabbit.annotation.Exchange(value = "zhihao.miao.exchange",durable = "true"),key = "welcome")
+            }
+     )
+    public void process12(){
+
     }
 }
