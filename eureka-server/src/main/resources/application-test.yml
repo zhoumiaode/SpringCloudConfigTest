@@ -2,12 +2,12 @@ server:
   port: 8888
 eureka:
   instance:
-    hostname: pee2
+    hostname: localhost
   client:
-    registerWithEureka: true
-    fetchRegistry: true
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://pee1:8889/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
     enable-self-preservation: false #关闭Service自我保护功能
     eviction-interval-timer-in-ms: 4000 #设置清理间隔，毫秒为单位

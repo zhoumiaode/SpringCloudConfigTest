@@ -7,6 +7,16 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/config-client/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/config-client/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/config-server/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/config-server/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/consul/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/consul/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/eureka-server/src/main" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/eureka-server/src/test" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/rabbitmq/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rabbitmq/src/main" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

@@ -16,7 +16,7 @@
     <bytecodeTargetLevel>
       <module name="config-client" target="1.8" />
       <module name="config-server" target="1.8" />
-      <module name="consul" target="1.5" />
+      <module name="consul" target="1.8" />
       <module name="eureka-server" target="1.8" />
       <module name="rabbitmq" target="1.8" />
       <module name="scfchapter6" target="1.8" />
